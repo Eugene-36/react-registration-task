@@ -1,9 +1,10 @@
+import Login from './components/Form/Login';
 import './App.css';
 
 function App() {
   return (
     <div className='App'>
-      <h1>Work fine</h1>
+      <Login />
     </div>
   );
 }
