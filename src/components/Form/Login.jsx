@@ -1,10 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Col, Button, Row, Container, Card, Form } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+
+// import addInfo from '../../store/reducers/dataReducer';
+import { addInfo } from '../../store/slice/userSlice';
 
 const Login = () => {
   const [chekInput, setInputValue] = useState('');
+  // const dataState = useSelector((state) => state.data);
+  // initial the dispatch here
+  const dispatch = useDispatch();
+  // console.log(userSlice);
+  // useEffect(() => {
+  //   insertFormInfo();
+  // }, []);
 
-  console.log('chekInput', chekInput);
+  function insertFormInfo(e) {
+    e.preventDefault();
+    console.log('chekInput', chekInput);
+    dispatch(addInfo(chekInput));
+    setInputValue('');
+  }
+
   return (
     <div>
       <Container>
@@ -18,12 +35,13 @@ const Login = () => {
                   </h2>
                   <p className=' mb-5'>Please enter your login and password!</p>
                   <div className='mb-3'>
-                    <Form>
+                    <Form onSubmit={insertFormInfo}>
                       <Form.Group className='mb-3' controlId='formBasicEmail'>
                         <Form.Label className='text-center'>Login</Form.Label>
                         <Form.Control
-                          onChange={(e) => setInputValue(e.target.value)}
+                          value={chekInput}
                           type='text'
+                          onChange={(e) => setInputValue(e.target.value)}
                           placeholder='Enter Login'
                         />
                       </Form.Group>
