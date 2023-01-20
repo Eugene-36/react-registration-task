@@ -5,8 +5,10 @@ export const userSlice = createSlice({
   initialState: [],
   reducers: {
     addInfo: (state, action) => {
+      console.log('action', action.payload);
       const info = {
-        text: action.payload,
+        login: action.payload.login,
+        password: action.payload.password,
       };
 
       return [...state, info];

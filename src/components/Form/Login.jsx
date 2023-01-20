@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { Col, Button, Row, Container, Card, Form } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-
-// import addInfo from '../../store/reducers/dataReducer';
+import { Link } from 'react-router-dom';
 import { addInfo } from '../../store/slice/userSlice';
 
 const Login = () => {
-  const [chekInput, setInputValue] = useState('');
-  // const dataState = useSelector((state) => state.data);
-  // initial the dispatch here
+  const [login, setInputValue] = useState('');
+  const [password, setInputPassword] = useState('');
+
   const dispatch = useDispatch();
-  // console.log(userSlice);
-  // useEffect(() => {
-  //   insertFormInfo();
-  // }, []);
+
+  const canBeSubmitted = () => login.length > 0 && password.length > 0;
 
   function insertFormInfo(e) {
     e.preventDefault();
-    console.log('chekInput', chekInput);
-    dispatch(addInfo(chekInput));
+    if (!canBeSubmitted()) {
+      return;
+    }
+
+    dispatch(addInfo({ login, password }));
     setInputValue('');
+    setInputPassword('');
   }
 
   return (
@@ -39,7 +40,7 @@ const Login = () => {
                       <Form.Group className='mb-3' controlId='formBasicEmail'>
                         <Form.Label className='text-center'>Login</Form.Label>
                         <Form.Control
-                          value={chekInput}
+                          value={login}
                           type='text'
                           onChange={(e) => setInputValue(e.target.value)}
                           placeholder='Enter Login'
@@ -51,11 +52,20 @@ const Login = () => {
                         controlId='formBasicPassword'
                       >
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type='password' placeholder='Password' />
+                        <Form.Control
+                          value={password}
+                          onChange={(e) => setInputPassword(e.target.value)}
+                          type='password'
+                          placeholder='Password'
+                        />
                       </Form.Group>
 
                       <div className='d-grid'>
-                        <Button variant='primary' type='submit'>
+                        <Button
+                          disabled={!canBeSubmitted()}
+                          variant='primary'
+                          type='submit'
+                        >
                           Login
                         </Button>
                       </div>
