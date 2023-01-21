@@ -13,7 +13,6 @@ const Login = () => {
   const canBeSubmitted = () => login.length > 0 && password.length > 0;
 
   function insertFormInfo(e) {
-    e.preventDefault();
     if (!canBeSubmitted()) {
       return;
     }
@@ -36,7 +35,7 @@ const Login = () => {
                   </h2>
                   <p className=' mb-5'>Please enter your login and password!</p>
                   <div className='mb-3'>
-                    <Form onSubmit={insertFormInfo}>
+                    <Form>
                       <Form.Group className='mb-3' controlId='formBasicEmail'>
                         <Form.Label className='text-center'>Login</Form.Label>
                         <Form.Control
@@ -62,11 +61,22 @@ const Login = () => {
 
                       <div className='d-grid'>
                         <Button
+                          onClick={(e) => insertFormInfo(e)}
                           disabled={!canBeSubmitted()}
                           variant='primary'
                           type='submit'
                         >
-                          Login
+                          <Link
+                            style={{
+                              width: '100%',
+                              color: 'white',
+                              textDecoration: 'none',
+                              padding: '0 150px 0 150px',
+                            }}
+                            to='/profile'
+                          >
+                            Login
+                          </Link>
                         </Button>
                       </div>
                     </Form>
