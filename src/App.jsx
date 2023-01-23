@@ -5,9 +5,6 @@ import './App.css';
 import User from './components/Account/User';
 
 function App() {
-  // const dataState = useSelector((state) => state.user);
-  // initial the dispatch here
-
   return (
     <div className='App'>
       <Routes>
